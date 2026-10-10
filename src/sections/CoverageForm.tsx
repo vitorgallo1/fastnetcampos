@@ -21,6 +21,33 @@ type Result =
 
 type Errors = Partial<Record<'cep' | 'number' | 'address', string>>;
 
+/**
+ * Rola até o formulário de cobertura e foca o primeiro campo.
+ * Usado pelo link "Consultar meu endereço" do mapa.
+ */
+export function focusCoverageForm(event?: { preventDefault: () => void }) {
+  const form = document.getElementById('consulta');
+  if (!form) return;
+  event?.preventDefault();
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  form.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+  // preventScroll: a rolagem já está em andamento; o foco não deve "pular" a tela.
+  form.querySelector<HTMLElement>('input, textarea')?.focus({ preventScroll: true });
+}
+
+/**
+ * No celular, abre o WhatsApp na própria aba (o app assume o link); pop-ups
+ * são bloqueados em vários navegadores móveis e nos navegadores internos de
+ * apps como Instagram e Facebook. No computador, abre em nova aba.
+ */
+function openWhatsApp(href: string) {
+  if (window.matchMedia('(pointer: coarse)').matches) {
+    window.location.assign(href);
+  } else {
+    window.open(href, '_blank', 'noopener,noreferrer');
+  }
+}
+
 export function CoverageForm() {
   const ids = { cep: useId(), number: useId(), complement: useId(), address: useId(), name: useId() };
   const [mode, setMode] = useState<'cep' | 'address'>('cep');
@@ -100,7 +127,7 @@ export function CoverageForm() {
 
     if (!site.coverage.apiUrl) {
       // Sem integração com o sistema de viabilidade: a equipe comercial confirma pelo WhatsApp.
-      window.open(href, '_blank', 'noopener,noreferrer');
+      openWhatsApp(href);
       setResult({ kind: 'sent', href });
       return;
     }
@@ -128,7 +155,10 @@ export function CoverageForm() {
   }
 
   return (
-    <div className="rounded-card bg-white p-6 text-navy shadow-[0_30px_80px_-30px_rgba(0,0,0,0.55)] sm:p-8">
+    <div
+      id="consulta"
+      className="scroll-mt-24 rounded-card bg-white p-6 text-navy shadow-[0_30px_80px_-30px_rgba(0,0,0,0.55)] sm:p-8"
+    >
       <AnimatePresence mode="wait" initial={false}>
         {result ? (
           <m.div

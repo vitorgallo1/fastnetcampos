@@ -1,8 +1,9 @@
 import { m, useInView } from 'framer-motion';
-import { MapPin } from 'lucide-react';
+import { ArrowRight, MapPin } from 'lucide-react';
 import { useRef, useState, type CSSProperties } from 'react';
 import { site, type Locality } from '@/config/site';
 import { cn } from '@/lib/cn';
+import { focusCoverageForm } from '../CoverageForm';
 import { MAP_HEIGHT, MAP_WIDTH, municipalities, project } from './geo';
 
 /** Vizinhos com nome discreto no mapa, só para orientar a leitura. */
@@ -135,9 +136,20 @@ export function CoverageMap() {
               </li>
             ))}
           </ul>
-          <p className="mt-auto pt-6 text-[0.74rem] leading-relaxed text-white/45">
-            Mapa ilustrativo. A disponibilidade varia por endereço — consulte o seu ao lado.
-          </p>
+          <div className="mt-auto pt-6">
+            <p className="text-[0.74rem] leading-relaxed text-white/45">
+              Mapa ilustrativo. A disponibilidade varia por endereço.
+            </p>
+            {/* Leva ao formulário — ao lado no computador, abaixo no celular — e já foca o CEP. */}
+            <a
+              href="#consulta"
+              onClick={focusCoverageForm}
+              className="group mt-3 inline-flex items-center gap-1.5 rounded text-[0.85rem] font-semibold text-sky-brand underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-brand"
+            >
+              Consultar meu endereço
+              <ArrowRight size={15} aria-hidden="true" className="transition-transform group-hover:translate-x-0.5" />
+            </a>
+          </div>
         </figcaption>
       </div>
     </figure>
