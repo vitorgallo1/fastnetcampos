@@ -82,6 +82,11 @@
     animation-delay: var(--delay, 0s);
   }
 
+  /* Foto do hero "assenta" ao carregar: só escala, sem esconder a imagem (não atrasa o LCP). */
+  .anim-photo {
+    animation: settle 1.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
   .anim-float {
     animation: float 7s ease-in-out infinite;
   }
@@ -161,6 +166,10 @@
 @keyframes fiber-travel {
   from { stroke-dashoffset: 1; }
   to { stroke-dashoffset: 0; }
+}
+@keyframes settle {
+  from { transform: scale(1.06); }
+  to { transform: scale(1); }
 }
 @keyframes float {
   0%, 100% { transform: translateY(0); }

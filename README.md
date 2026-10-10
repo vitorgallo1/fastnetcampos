@@ -74,17 +74,17 @@ scripts/prerender.mjs     injeta o HTML renderizado em dist/index.html
 - **SEO**: title, description, canonical, Open Graph, dados estruturados `LocalBusiness` gerados a partir de `site.ts`, `sitemap.xml` e `robots.txt`.
 - **Acessibilidade**: link "pular para o conteúdo", foco visível, rótulos e mensagens de erro associados aos campos, contraste AA nos textos.
 
-## Fotografias
+## Imagens
 
-Nenhuma foto de banco de imagens ou gerada por IA foi incluída. Enquanto um
-caminho em `site.images` for `null`, a seção usa uma composição gráfica própria.
-Para usar fotos reais, salve-as em `public/images/` e informe o caminho:
+As artes enviadas pela FastNet ficam em `brand/originais/artes/`; as versões
+servidas pelo site, em `public/images/`, configuradas em `site.images`
+(`src/config/site.ts`). Cada tela baixa só o tamanho de que precisa:
 
-| Chave | Uso | Sugestão |
+| Chave | Arquivos | Comportamento |
 | --- | --- | --- |
-| `hero` | Pessoa usando notebook em casa (lado direito do hero) | 2000×1300 px, WebP ou JPG de até 250 KB, assunto à direita |
-| `business` | Profissional trabalhando (lado direito da seção empresarial) | 1200×1000 px, até 180 KB |
-| `coverage` | Panorama real de Campos dos Goytacazes | 2400×1000 px, até 300 KB |
+| `hero` | `hero-960.webp`, `hero-1672.webp` | Fundo do hero a partir de 1024 px; no celular, bloco entre os botões e os destaques |
+| `business` | `empresas-mobile.webp`, `empresas-1200.webp`, `empresas-2000.webp` | Fundo da seção a partir de 1280 px; abaixo disso, card sob o conteúdo |
+| `coverage` | — (pendente) | Panorama de Campos dos Goytacazes; sem ele, a seção usa uma composição gráfica |
 
-Para converter: `npx @squoosh/cli --webp '{"quality":78}' foto.jpg` ou
-`cwebp -q 78 foto.jpg -o foto.webp`.
+Para trocar uma arte, gere as larguras equivalentes (ex.: `cwebp -q 76 -resize 1200 0 arte.jpg -o arte-1200.webp`)
+e atualize os caminhos em `site.images`.

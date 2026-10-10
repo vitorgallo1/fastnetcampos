@@ -17,6 +17,16 @@ export type Plan = {
   featured?: boolean;
 };
 
+export type ResponsiveImage = {
+  /** Arquivo maior, usado como fallback. */
+  src: string;
+  srcSet: string;
+  width: number;
+  height: number;
+  /** Recorte opcional para telas menores que 1024 px. */
+  mobile?: { src: string; width: number; height: number };
+};
+
 export const site = {
   name: 'FastNet Campos',
   url: 'https://fastnetcampos.net.br',
@@ -70,13 +80,24 @@ export const site = {
   },
 
   /**
-   * Fotografias reais (JPG/WebP otimizados) em /public/images/.
-   * Enquanto um caminho for `null`, a seção usa uma composição gráfica
-   * própria, sem imagem ilustrativa genérica. Especificações em README.md.
+   * Artes em /public/images/ (originais enviados pela FastNet em brand/originais/artes).
+   * Com `null`, a seção usa uma composição gráfica própria. Especificações em README.md.
    */
   images: {
-    hero: null as string | null,
-    business: null as string | null,
+    hero: {
+      src: '/images/hero-1672.webp',
+      srcSet: '/images/hero-960.webp 960w, /images/hero-1672.webp 1672w',
+      width: 1672,
+      height: 941,
+    } as ResponsiveImage | null,
+    business: {
+      src: '/images/empresas-2000.webp',
+      srcSet: '/images/empresas-1200.webp 1200w, /images/empresas-2000.webp 2000w',
+      width: 2000,
+      height: 667,
+      mobile: { src: '/images/empresas-mobile.webp', width: 760, height: 563 },
+    } as ResponsiveImage | null,
+    /** PENDENTE: panorama real de Campos dos Goytacazes. */
     coverage: null as string | null,
   },
 

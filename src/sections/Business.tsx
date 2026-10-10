@@ -1,5 +1,5 @@
 import { ArrowRight, ClipboardList, Headset, Network, SlidersHorizontal } from 'lucide-react';
-import { site } from '@/config/site';
+import { site, type ResponsiveImage } from '@/config/site';
 import { cn } from '@/lib/cn';
 import { messages, whatsappUrl } from '@/lib/whatsapp';
 import { Button } from '@/components/ui/Button';
@@ -22,20 +22,22 @@ export function Business() {
       aria-labelledby="empresas-title"
       className="relative isolate overflow-hidden bg-navy py-20 text-white sm:py-24"
     >
-      {photo ? (
-        <div aria-hidden="true" className="absolute inset-y-0 right-0 -z-10 hidden w-[40%] lg:block">
-          <img src={photo} alt="" loading="lazy" decoding="async" className="size-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/30 to-transparent" />
-        </div>
-      ) : (
+      {!photo && (
         <div
           aria-hidden="true"
           className="absolute -left-40 -top-40 -z-10 size-[520px] rounded-full bg-electric/20 blur-[120px]"
         />
       )}
 
-      <Container>
-        <div className={cn('grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-16', photo && 'lg:pr-[38%] lg:grid-cols-1 xl:grid-cols-[1.1fr_1fr]')}>
+      <Container className={cn(photo && 'xl:static')}>
+        {/* Com a arte de fundo, o conteúdo fica na metade esquerda para não cobrir a foto. */}
+        <div
+          className={cn(
+            'grid gap-12',
+            'lg:grid-cols-2 lg:items-center lg:gap-16',
+            photo && 'xl:max-w-[56%] xl:grid-cols-1 xl:gap-12',
+          )}
+        >
           <Reveal>
             <Eyebrow tone="dark">Para sua empresa</Eyebrow>
             <h2
@@ -74,7 +76,37 @@ export function Business() {
             ))}
           </ul>
         </div>
+
+        {photo && <BusinessPhoto image={photo} />}
       </Container>
     </section>
+  );
+}
+
+/**
+ * Arte do Link Corporativo: até 1279 px, um card abaixo do conteúdo (no celular,
+ * recortado no profissional); a partir de 1280 px, o fundo inteiro da seção —
+ * a própria arte já escurece à esquerda, onde fica o texto.
+ */
+function BusinessPhoto({ image }: { image: ResponsiveImage }) {
+  return (
+    <div
+      aria-hidden="true"
+      className="relative mt-12 aspect-[4/3] overflow-hidden rounded-card sm:aspect-[2/1] lg:aspect-[5/2] xl:absolute xl:inset-0 xl:-z-10 xl:mt-0 xl:aspect-auto xl:rounded-none"
+    >
+      <picture>
+        <source media="(min-width: 640px)" srcSet={image.srcSet} sizes="100vw" />
+        <img
+          src={image.mobile?.src ?? image.src}
+          width={image.mobile?.width ?? image.width}
+          height={image.mobile?.height ?? image.height}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          className="size-full object-cover object-[60%_25%] sm:object-[right_30%] xl:object-[right_center]"
+        />
+      </picture>
+      <div className="absolute inset-0 hidden bg-[linear-gradient(90deg,#071B3D_0%,rgba(7,27,61,0.6)_35%,rgba(7,27,61,0)_60%)] xl:block" />
+    </div>
   );
 }

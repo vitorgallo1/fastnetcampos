@@ -1,10 +1,11 @@
 import type { CSSProperties } from 'react';
 import { ArrowRight, Gauge, Headset, MapPin, ShieldCheck, Wifi, Zap } from 'lucide-react';
-import { maxSpeed, site } from '@/config/site';
+import { maxSpeed, site, type ResponsiveImage } from '@/config/site';
 import { Button } from '@/components/ui/Button';
 import { CountUp } from '@/components/ui/CountUp';
 import { Container } from '@/components/ui/Container';
 import { Eyebrow } from '@/components/ui/Eyebrow';
+import { cn } from '@/lib/cn';
 
 const facts = [
   { icon: Wifi, title: '100%', text: 'Fibra óptica' },
@@ -18,9 +19,10 @@ const delay = (seconds: number) => ({ '--delay': `${seconds}s` }) as CSSProperti
 export function Hero() {
   return (
     <section id="inicio" aria-labelledby="hero-title" className="relative isolate overflow-hidden bg-navy pt-[72px] text-white">
-      <HeroVisual />
+      {!site.images.hero && <FiberComposition />}
+      <SpeedBadge />
 
-      <Container className="relative">
+      <Container className="relative lg:static">
         <div className="grid grid-rows-[1fr_auto] lg:min-h-[min(calc(100svh-72px),820px)]">
           <div className="flex max-w-[600px] flex-col justify-center py-14 sm:py-20">
             <div className="anim-fade-up">
@@ -80,7 +82,9 @@ export function Hero() {
             </div>
           </div>
 
-          <ul className="grid grid-cols-2 gap-x-6 gap-y-5 border-t border-white/10 py-7 sm:grid-cols-4 lg:max-w-[760px] lg:border-t-0 lg:pb-12 lg:pt-0">
+          {site.images.hero && <HeroPhoto image={site.images.hero} />}
+
+          <ul className="relative grid grid-cols-2 gap-x-6 gap-y-5 border-t border-white/10 py-7 sm:grid-cols-4 lg:max-w-[760px] lg:border-t-0 lg:pb-12 lg:pt-0">
             {facts.map(({ icon: Icon, title, text }, i) => (
               <li key={title} className="anim-fade-up flex items-center gap-3" style={delay(0.65 + i * 0.08)}>
                 <Icon size={22} strokeWidth={1.6} aria-hidden="true" className="shrink-0 text-sky-brand" />
@@ -97,25 +101,33 @@ export function Hero() {
   );
 }
 
-function HeroVisual() {
+/**
+ * Foto do hero: no celular é um bloco entre os botões e os destaques; a partir
+ * de 1024 px vira o fundo da seção. Um único <img> serve os dois layouts.
+ */
+function HeroPhoto({ image }: { image: ResponsiveImage }) {
   return (
-    <div aria-hidden="true" className="absolute inset-0 -z-10">
-      {site.images.hero ? (
-        <>
-          <img
-            src={site.images.hero}
-            alt=""
-            fetchPriority="high"
-            decoding="async"
-            className="absolute inset-0 size-full object-cover object-[70%_center] opacity-40 lg:left-[38%] lg:w-[62%] lg:opacity-100"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/85 to-navy/10 lg:via-navy/40" />
-          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-navy to-transparent" />
-        </>
-      ) : (
-        <FiberComposition />
-      )}
-      <SpeedBadge />
+    <div
+      aria-hidden="true"
+      className="relative -mx-5 aspect-[4/3] overflow-hidden sm:-mx-8 sm:aspect-[16/9] lg:absolute lg:inset-0 lg:-z-10 lg:mx-0 lg:aspect-auto"
+    >
+      <img
+        src={image.src}
+        srcSet={image.srcSet}
+        sizes="100vw"
+        width={image.width}
+        height={image.height}
+        alt=""
+        fetchPriority="high"
+        decoding="async"
+        className="anim-photo size-full object-cover object-[68%_30%] lg:object-[right_30%]"
+      />
+      {/* Celular: funde a foto no azul-marinho em cima e embaixo. */}
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,#071B3D_0%,rgba(7,27,61,0)_30%,rgba(7,27,61,0)_70%,#071B3D_100%)] lg:hidden" />
+      {/* Desktop: lateral esquerda sólida para o texto, base escura para os destaques. */}
+      <div className="absolute inset-0 hidden bg-[linear-gradient(90deg,#071B3D_0%,#071B3D_24%,rgba(7,27,61,0.82)_40%,rgba(7,27,61,0.25)_58%,rgba(7,27,61,0)_72%)] lg:block" />
+      <div className="absolute inset-x-0 bottom-0 hidden h-48 bg-gradient-to-t from-navy via-navy/60 to-transparent lg:block" />
+      <div className="absolute inset-x-0 top-0 hidden h-28 bg-gradient-to-b from-navy/70 to-transparent lg:block" />
     </div>
   );
 }
@@ -133,7 +145,7 @@ const pulses = [
 /** Composição gráfica usada enquanto a fotografia oficial do hero não é definida. */
 function FiberComposition() {
   return (
-    <>
+    <div aria-hidden="true" className="absolute inset-0 -z-10">
       <div className="absolute -right-40 top-1/2 size-[780px] -translate-y-1/2 rounded-full bg-electric/25 blur-[140px]" />
       <svg
         viewBox="0 0 800 700"
@@ -178,14 +190,18 @@ function FiberComposition() {
         ))}
       </svg>
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(7,27,61,0)_0%,rgba(4,17,42,0.65)_100%)]" />
-    </>
+    </div>
   );
 }
 
 function SpeedBadge() {
   return (
     <div
-      className="anim-fade-up absolute right-[max(2.5rem,calc((100vw-1280px)/2+2.5rem))] top-[34%] hidden xl:block"
+      aria-hidden="true"
+      className={cn(
+        'anim-fade-up absolute right-[max(2.5rem,calc((100vw-1280px)/2+2.5rem))] hidden xl:block',
+        site.images.hero ? 'top-[17%]' : 'top-[34%]',
+      )}
       style={delay(0.6)}
     >
     <div className="anim-float w-[220px] overflow-hidden rounded-2xl border border-white/15 bg-navy-900/70 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.6)] backdrop-blur-md">

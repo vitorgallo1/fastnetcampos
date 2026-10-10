@@ -17,6 +17,6 @@ rodar `npm run build` de novo.
 | **Localidades atendidas** | Campos dos Goytacazes, São João da Barra, Tocos, Goitacazes e Farol, com `confirmed: false` → a lista **não** aparece | Confirmar a lista e mudar para `confirmed: true`. |
 | **Consulta de viabilidade** | `apiUrl: null` → a consulta vai para o WhatsApp comercial | Se o sistema de gestão tiver uma API de viabilidade, informar o endpoint (contrato descrito no arquivo). |
 | **Planos e preços** | 200 Mb R$ 70, 500 Mb R$ 80, 800 Mb R$ 100 (do briefing) | Confirmar. Nenhum benefício contratual (instalação grátis, fidelidade, roteador) foi incluído. |
-| **Fotografias** | `images.*: null` → as seções usam composições gráficas próprias | Fornecer fotos reais (veja "Fotografias" no README). |
+| **Fotografias** | ✅ Hero e Link Corporativo com as artes enviadas. Cobertura ainda usa composição gráfica | Enviar um panorama real de Campos dos Goytacazes, se quiserem foto nessa seção. |
 | **Ícone do site (favicon)** | ✅ Arte oficial enviada pela FastNet (`brand/originais/fastnet-favicon.png`) | — |
 | **Imagem de compartilhamento** | ✅ `public/og-image.png` com a logo oficial | — |
