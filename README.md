@@ -82,7 +82,7 @@ servidas pelo site, em `public/images/`, configuradas em `site.images`
 
 | Chave | Arquivos | Comportamento |
 | --- | --- | --- |
-| `hero` | `hero-960.webp`, `hero-1672.webp` | Fundo do hero a partir de 1024 px; no celular, bloco entre os botões e os destaques |
+| `hero` | `hero-960.webp`, `hero-1672.webp` | Fundo do hero a partir de 1024 px; abaixo disso não aparece nem é baixada |
 | `business` | `empresas-mobile.webp`, `empresas-1200.webp`, `empresas-2000.webp` | Fundo da seção a partir de 1280 px; abaixo disso, card sob o conteúdo |
 | `coverage` | — (pendente) | Panorama de Campos dos Goytacazes; sem ele, a seção usa uma composição gráfica |
 

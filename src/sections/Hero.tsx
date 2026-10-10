@@ -19,10 +19,21 @@ const delay = (seconds: number) => ({ '--delay': `${seconds}s` }) as CSSProperti
 export function Hero() {
   return (
     <section id="inicio" aria-labelledby="hero-title" className="relative isolate overflow-hidden bg-navy pt-[72px] text-white">
-      {!site.images.hero && <FiberComposition />}
+      {site.images.hero ? (
+        <>
+          <HeroPhoto image={site.images.hero} />
+          {/* Celular e tablet, sem foto: só um brilho suave no azul-marinho. */}
+          <div
+            aria-hidden="true"
+            className="absolute -right-48 top-1/4 -z-10 size-[520px] rounded-full bg-electric/25 blur-[130px] lg:hidden"
+          />
+        </>
+      ) : (
+        <FiberComposition />
+      )}
       <SpeedBadge />
 
-      <Container className="relative lg:static">
+      <Container className="relative">
         <div className="grid grid-rows-[1fr_auto] lg:min-h-[min(calc(100svh-72px),820px)]">
           <div className="flex max-w-[600px] flex-col justify-center py-14 sm:py-20">
             <div className="anim-fade-up">
@@ -82,9 +93,7 @@ export function Hero() {
             </div>
           </div>
 
-          {site.images.hero && <HeroPhoto image={site.images.hero} />}
-
-          <ul className="relative grid grid-cols-2 gap-x-6 gap-y-5 border-t border-white/10 py-7 sm:grid-cols-4 lg:max-w-[760px] lg:border-t-0 lg:pb-12 lg:pt-0">
+          <ul className="grid grid-cols-2 gap-x-6 gap-y-5 border-t border-white/10 py-7 sm:grid-cols-4 lg:max-w-[760px] lg:border-t-0 lg:pb-12 lg:pt-0">
             {facts.map(({ icon: Icon, title, text }, i) => (
               <li key={title} className="anim-fade-up flex items-center gap-3" style={delay(0.65 + i * 0.08)}>
                 <Icon size={22} strokeWidth={1.6} aria-hidden="true" className="shrink-0 text-sky-brand" />
@@ -102,35 +111,34 @@ export function Hero() {
 }
 
 /**
- * Foto do hero: no celular é um bloco entre os botões e os destaques; a partir
- * de 1024 px vira o fundo da seção. Um único <img> serve os dois layouts.
+ * Foto do hero, só a partir de 1024 px (fundo da seção). No celular e no tablet
+ * a foto não aparece e nem é baixada: o <source> só casa em telas largas e o
+ * fallback é um GIF transparente embutido.
  */
 function HeroPhoto({ image }: { image: ResponsiveImage }) {
   return (
-    <div
-      aria-hidden="true"
-      className="relative -mx-5 aspect-[4/3] overflow-hidden sm:-mx-8 sm:aspect-[16/9] lg:absolute lg:inset-0 lg:-z-10 lg:mx-0 lg:aspect-auto"
-    >
-      <img
-        src={image.src}
-        srcSet={image.srcSet}
-        sizes="100vw"
-        width={image.width}
-        height={image.height}
-        alt=""
-        fetchPriority="high"
-        decoding="async"
-        className="anim-photo size-full object-cover object-[68%_30%] lg:object-[right_30%]"
-      />
-      {/* Celular: funde a foto no azul-marinho em cima e embaixo. */}
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,#071B3D_0%,rgba(7,27,61,0)_30%,rgba(7,27,61,0)_70%,#071B3D_100%)] lg:hidden" />
-      {/* Desktop: lateral esquerda sólida para o texto, base escura para os destaques. */}
-      <div className="absolute inset-0 hidden bg-[linear-gradient(90deg,#071B3D_0%,#071B3D_24%,rgba(7,27,61,0.82)_40%,rgba(7,27,61,0.25)_58%,rgba(7,27,61,0)_72%)] lg:block" />
-      <div className="absolute inset-x-0 bottom-0 hidden h-48 bg-gradient-to-t from-navy via-navy/60 to-transparent lg:block" />
-      <div className="absolute inset-x-0 top-0 hidden h-28 bg-gradient-to-b from-navy/70 to-transparent lg:block" />
+    <div aria-hidden="true" className="absolute inset-0 -z-10 hidden lg:block">
+      <picture>
+        <source media="(min-width: 1024px)" srcSet={image.srcSet} sizes="100vw" />
+        <img
+          src={TRANSPARENT_GIF}
+          width={image.width}
+          height={image.height}
+          alt=""
+          fetchPriority="high"
+          decoding="async"
+          className="anim-photo size-full object-cover object-[right_30%]"
+        />
+      </picture>
+      {/* Lateral esquerda sólida para o texto, base escura para os destaques. */}
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,#071B3D_0%,#071B3D_24%,rgba(7,27,61,0.82)_40%,rgba(7,27,61,0.25)_58%,rgba(7,27,61,0)_72%)]" />
+      <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-navy via-navy/60 to-transparent" />
+      <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-navy/70 to-transparent" />
     </div>
   );
 }
+
+const TRANSPARENT_GIF = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 
 const fiberPath = (i: number) =>
   `M -40 ${640 - i * 22} C 280 ${600 - i * 34}, 480 ${300 + i * 14}, 840 ${150 + i * 34}`;
