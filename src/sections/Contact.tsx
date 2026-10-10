@@ -87,8 +87,8 @@ function ChatMockup() {
       <div className="w-[270px] -rotate-[4deg] rounded-[2.4rem] border-[7px] border-[#0B1220] bg-[#0B1220] shadow-[0_40px_80px_-30px_rgba(7,27,61,0.6)]">
         <div className="overflow-hidden rounded-[1.9rem] bg-[#EFE7DD]">
           <div className="flex items-center gap-3 bg-[#0B5C4B] px-4 pb-3 pt-7 text-white">
-            <span className="grid size-9 place-items-center rounded-full bg-white font-display text-[0.7rem] font-extrabold text-navy">
-              FN
+            <span className="grid size-9 place-items-center rounded-full bg-white">
+              <img src="/brand/icone-fastnet.webp" alt="" width={22} height={18} loading="lazy" className="w-[22px]" />
             </span>
             <span className="leading-tight">
               <span className="block text-[0.85rem] font-semibold">{site.name}</span>

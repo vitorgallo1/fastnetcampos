@@ -24,17 +24,16 @@ export const site = {
   state: 'RJ',
 
   /**
-   * Logo oficial. Coloque o arquivo original (SVG de preferência) em
-   * /public/brand/ e informe o caminho aqui, ex.: '/brand/logo-fastnet.svg'.
-   * Enquanto for `null`, o site exibe o nome da empresa em texto simples —
-   * nunca uma recriação da marca.
-   * PENDENTE: arquivo da logo oficial.
+   * Logo oficial (arquivos enviados pela FastNet, em /brand/originais).
+   * A versão para fundo escuro junta o ícone azul da logo completa com o
+   * texto branco oficial. Com `null`, o site exibe o nome em texto simples.
    */
   logo: {
-    /** Versão para fundos escuros (header, hero e rodapé). */
-    onDark: null as string | null,
-    width: 160,
-    height: 40,
+    /** Versão para fundos escuros (header e rodapé). */
+    onDark: '/brand/logo-fastnet-branca.webp' as string | null,
+    /** Dimensões intrínsecas do arquivo, para reservar o espaço e evitar salto de layout. */
+    width: 373,
+    height: 96,
   },
 
   contact: {

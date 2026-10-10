@@ -42,6 +42,7 @@ Se o domínio final não for `https://fastnetcampos.net.br`, atualize `site.url`
 | O quê | Arquivo |
 | --- | --- |
 | Contatos, planos, links, localidades, imagens, logo | `src/config/site.ts` |
+| Arquivos da logo | `brand/originais/` (enviados pela FastNet) e `public/brand/` (versões usadas no site) |
 | Mensagens enviadas ao WhatsApp | `src/lib/whatsapp.ts` |
 | Título, descrição e Open Graph | `index.html` |
 | Cores e fontes | `tailwind.config.ts` e `src/index.css` |

@@ -7,7 +7,7 @@ rodar `npm run build` de novo.
 
 | Item | Situação atual no código | O que fazer |
 | --- | --- | --- |
-| **Logo oficial** | `logo.onDark: null` → o site mostra "FastNet Campos" em texto simples | Colocar o arquivo original (SVG ou PNG em alta, versão para fundo escuro) em `public/brand/` e informar o caminho. |
+| **Logo oficial** | ✅ Recebida. Originais em `brand/originais/`; versão para fundo escuro (ícone azul + texto branco) em `public/brand/` | Se existir a logo em vetor (SVG, AI ou PDF), vale substituir para nitidez máxima. |
 | **WhatsApp comercial** | `5522992135926` / (22) 99213-5926, tirado da imagem de referência | Confirmar o número. Ele alimenta todos os botões, o formulário de cobertura, o rodapé e o SEO. Também aparece no `<noscript>` do `index.html`. |
 | **Horário de atendimento** | "Segunda a sábado", tirado da imagem de referência | Confirmar e, se possível, informar os horários. |
 | **Central do Assinante** | `subscriberPortalUrl: null` → o link abre o WhatsApp com "Sou assinante FastNet e preciso de atendimento" | Informar a URL do portal do assinante (SGP, IXC, MK etc.). |
@@ -18,5 +18,5 @@ rodar `npm run build` de novo.
 | **Consulta de viabilidade** | `apiUrl: null` → a consulta vai para o WhatsApp comercial | Se o sistema de gestão tiver uma API de viabilidade, informar o endpoint (contrato descrito no arquivo). |
 | **Planos e preços** | 200 Mb R$ 70, 500 Mb R$ 80, 800 Mb R$ 100 (do briefing) | Confirmar. Nenhum benefício contratual (instalação grátis, fidelidade, roteador) foi incluído. |
 | **Fotografias** | `images.*: null` → as seções usam composições gráficas próprias | Fornecer fotos reais (veja "Fotografias" no README). |
-| **Ícone do site (favicon)** | Símbolo neutro de raio em `public/favicon.svg` e `public/apple-touch-icon.png` | Substituir pelo ícone oficial da marca. |
-| **Imagem de compartilhamento** | `public/og-image.png` gerada só com texto | Refazer com a logo oficial quando ela estiver disponível. |
+| **Ícone do site (favicon)** | ✅ Gerado a partir do ícone de Wi-Fi da logo oficial | — |
+| **Imagem de compartilhamento** | ✅ `public/og-image.png` com a logo oficial | — |

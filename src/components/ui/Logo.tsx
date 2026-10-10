@@ -1,10 +1,7 @@
 import { site } from '@/config/site';
 import { cn } from '@/lib/cn';
 
-/**
- * Logo oficial (site.logo.onDark). Enquanto o arquivo oficial não for
- * fornecido, exibe apenas o nome da empresa em texto — sem recriar a marca.
- */
+/** Logo oficial (site.logo.onDark); sem arquivo configurado, exibe o nome em texto. */
 export function Logo({ className }: { className?: string }) {
   if (site.logo.onDark) {
     return (
@@ -13,7 +10,8 @@ export function Logo({ className }: { className?: string }) {
         alt={site.name}
         width={site.logo.width}
         height={site.logo.height}
-        className={cn('h-9 w-auto', className)}
+        decoding="async"
+        className={cn('h-9 w-auto sm:h-10', className)}
       />
     );
   }
