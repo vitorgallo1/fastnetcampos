@@ -1,4 +1,5 @@
 import { MapPin } from 'lucide-react';
+import type { CSSProperties } from 'react';
 import { site } from '@/config/site';
 import { Container } from '@/components/ui/Container';
 import { Eyebrow } from '@/components/ui/Eyebrow';
@@ -28,6 +29,8 @@ export function Coverage() {
           </>
         )}
       </div>
+
+      <SignalMap />
 
       <Container>
         <div className="grid gap-12 lg:grid-cols-[1.15fr_minmax(0,440px)] lg:items-center lg:gap-20">
@@ -71,5 +74,29 @@ export function Coverage() {
         </div>
       </Container>
     </section>
+  );
+}
+
+/** Pontos de sinal pulsando ao fundo — ilustrativos, sem representar endereços reais. */
+const signals = [
+  { top: '22%', left: '46%', delay: 0 },
+  { top: '64%', left: '38%', delay: 0.9 },
+  { top: '38%', left: '58%', delay: 1.8 },
+  { top: '78%', left: '52%', delay: 0.5 },
+];
+
+function SignalMap() {
+  return (
+    <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 hidden lg:block">
+      {signals.map(({ top, left, delay }) => (
+        <span key={`${top}-${left}`} className="absolute" style={{ top, left }}>
+          <span
+            className="anim-ring absolute -inset-1.5 rounded-full border border-sky-brand/60"
+            style={{ '--delay': `${delay}s` } as CSSProperties}
+          />
+          <span className="block size-1.5 rounded-full bg-sky-brand shadow-[0_0_12px_3px_rgba(57,185,255,0.45)]" />
+        </span>
+      ))}
+    </div>
   );
 }

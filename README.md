@@ -69,6 +69,7 @@ scripts/prerender.mjs     injeta o HTML renderizado em dist/index.html
 - **Central do Assinante**: portal oficial quando configurado; antes disso, atendimento pelo WhatsApp.
 - **Botão flutuante de WhatsApp**: aparece depois do hero e some sobre o formulário de cobertura, a seção de contato e o rodapé (no celular, também sobre os planos) para não cobrir outros elementos.
 - **Menu**: fixo, com destaque da seção atual; no celular, menu hambúrguer que fecha com Esc.
+- **Animações**: entrada do hero linha a linha (CSS, roda direto do HTML pré-renderizado), sublinhado desenhado sob "move você.", pulsos de luz nas fibras, contagem até a velocidade máxima, seções surgindo na rolagem, mockup de WhatsApp que "digita" e envia a mensagem, sinais pulsando na cobertura, brilho nos botões, barra de progresso de leitura (CSS `animation-timeline`, sem JS) e menu móvel escalonado. Só `transform`, `opacity` e `stroke-dashoffset`; tudo para com `prefers-reduced-motion`. Utilitários em `src/index.css`.
 - **SEO**: title, description, canonical, Open Graph, dados estruturados `LocalBusiness` gerados a partir de `site.ts`, `sitemap.xml` e `robots.txt`.
 - **Acessibilidade**: link "pular para o conteúdo", foco visível, rótulos e mensagens de erro associados aos campos, contraste AA nos textos.
 

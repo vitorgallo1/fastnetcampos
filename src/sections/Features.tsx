@@ -48,13 +48,10 @@ export function Features() {
               delay={i * 0.07}
               className="group bg-white p-7 transition-colors duration-300 hover:bg-mist lg:p-8"
             >
-              <Icon
-                size={26}
-                strokeWidth={1.6}
-                aria-hidden="true"
-                className="text-electric transition-transform duration-300 group-hover:-translate-y-0.5"
-              />
-              <h3 className="mt-6 font-display text-[1.05rem] font-bold text-navy">{title}</h3>
+              <span className="grid size-12 place-items-center rounded-xl bg-electric/[0.07] text-electric transition-[background-color,color,transform] duration-300 group-hover:-translate-y-0.5 group-hover:bg-electric group-hover:text-white">
+                <Icon size={23} strokeWidth={1.7} aria-hidden="true" />
+              </span>
+              <h3 className="mt-5 font-display text-[1.05rem] font-bold text-navy">{title}</h3>
               <p className="mt-2 text-[0.92rem] leading-relaxed text-ink-muted">{text}</p>
             </Reveal>
           ))}

@@ -62,8 +62,8 @@ export function Business() {
 
           <ul className="grid gap-x-8 gap-y-7 sm:grid-cols-2 lg:gap-y-9">
             {benefits.map(({ icon: Icon, title, text }, i) => (
-              <Reveal as="li" key={title} delay={0.06 * i} className="flex gap-4">
-                <span className="grid size-10 shrink-0 place-items-center rounded-lg border border-white/12 bg-white/[0.04] text-sky-brand">
+              <Reveal as="li" key={title} delay={0.06 * i} className="group flex gap-4">
+                <span className="grid size-10 shrink-0 place-items-center rounded-lg border border-white/12 bg-white/[0.04] text-sky-brand transition-[background-color,border-color,color] duration-300 group-hover:border-sky-brand/50 group-hover:bg-sky-brand/10 group-hover:text-white">
                   <Icon size={19} strokeWidth={1.7} aria-hidden="true" />
                 </span>
                 <div>

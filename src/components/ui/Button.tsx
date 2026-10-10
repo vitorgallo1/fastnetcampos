@@ -11,13 +11,13 @@ const base =
   'active:translate-y-px disabled:pointer-events-none disabled:opacity-60';
 
 const variants: Record<Variant, string> = {
-  primary: 'bg-electric text-white hover:bg-electric-600 focus-visible:ring-offset-white',
-  onDark: 'bg-electric text-white hover:bg-[#1468EA] focus-visible:ring-offset-navy',
+  primary: 'btn-shine bg-electric text-white hover:bg-electric-600 focus-visible:ring-offset-white',
+  onDark: 'btn-shine bg-electric text-white hover:bg-[#1468EA] focus-visible:ring-offset-navy',
   outlineDark:
     'border border-white/30 text-white hover:border-white hover:bg-white/[0.06] focus-visible:ring-offset-navy',
   outlineLight:
     'border border-electric/35 bg-white text-navy hover:border-electric hover:bg-electric hover:text-white focus-visible:ring-offset-white',
-  whatsapp: 'bg-whatsapp text-white hover:bg-whatsapp-hover focus-visible:ring-offset-white',
+  whatsapp: 'btn-shine bg-whatsapp text-white hover:bg-whatsapp-hover focus-visible:ring-offset-white',
 };
 
 const sizes: Record<Size, string> = {

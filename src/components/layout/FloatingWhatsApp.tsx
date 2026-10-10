@@ -50,7 +50,8 @@ export function FloatingWhatsApp() {
           transition={{ duration: 0.22 }}
           className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-4 z-40 grid size-14 place-items-center rounded-full bg-whatsapp text-white shadow-[0_12px_30px_-8px_rgba(21,128,61,0.6)] transition-colors hover:bg-whatsapp-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-brand focus-visible:ring-offset-2 sm:bottom-6 sm:right-6"
         >
-          <WhatsAppIcon size={27} />
+          <span aria-hidden="true" className="anim-ring-3 absolute inset-0 rounded-full bg-whatsapp" />
+          <WhatsAppIcon size={27} className="relative" />
         </m.a>
       )}
     </AnimatePresence>

@@ -123,6 +123,15 @@ export function Header() {
         </div>
       </Container>
 
+      {/* Progresso de leitura em CSS puro (animation-timeline); some onde não há suporte. */}
+      <div
+        aria-hidden="true"
+        className={cn(
+          'scroll-progress absolute inset-x-0 bottom-[-1px] h-0.5 origin-left bg-gradient-to-r from-electric to-sky-brand transition-opacity duration-300',
+          scrolled && !open ? 'opacity-100' : 'opacity-0',
+        )}
+      />
+
       <AnimatePresence>
         {open && (
           <m.div
@@ -137,8 +146,13 @@ export function Header() {
             <Container className="flex flex-col gap-1 py-6">
               <nav aria-label="Menu móvel">
                 <ul className="flex flex-col">
-                  {navLinks.map((link) => (
-                    <li key={link.id}>
+                  {navLinks.map((link, i) => (
+                    <m.li
+                      key={link.id}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3, delay: 0.04 * (i + 1) }}
+                    >
                       <a
                         href={`#${link.id}`}
                         onClick={() => setOpen(false)}
@@ -146,9 +160,13 @@ export function Header() {
                       >
                         {link.label}
                       </a>
-                    </li>
+                    </m.li>
                   ))}
-                  <li>
+                  <m.li
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: 0.04 * (navLinks.length + 1) }}
+                  >
                     <a
                       href={subscriberPortalHref()}
                       target="_blank"
@@ -159,7 +177,7 @@ export function Header() {
                       Central do Assinante
                       <ArrowUpRight size={18} aria-hidden="true" className="text-white/50" />
                     </a>
-                  </li>
+                  </m.li>
                 </ul>
               </nav>
               <Button
