@@ -27,6 +27,14 @@ export type ResponsiveImage = {
   mobile?: { src: string; width: number; height: number };
 };
 
+export type Locality = {
+  name: string;
+  kind: string;
+  lat: number;
+  lon: number;
+  label: 'left' | 'right';
+};
+
 export const site = {
   name: 'FastNet Campos',
   url: 'https://fastnetcampos.net.br',
@@ -61,11 +69,10 @@ export const site = {
   },
 
   /**
-   * Central do Assinante (portal do provedor).
-   * PENDENTE: URL oficial. Enquanto for `null`, os links levam o assinante
-   * ao WhatsApp com uma mensagem de atendimento ao cliente.
+   * Central do Assinante (portal do provedor). Com `null`, os links levam o
+   * assinante ao WhatsApp com uma mensagem de atendimento ao cliente.
    */
-  subscriberPortalUrl: null as string | null,
+  subscriberPortalUrl: 'https://fastnetbandalargarj.centralassinante.com.br/#/login' as string | null,
 
   /** PENDENTE: perfis oficiais. Redes com `null` não são exibidas. */
   social: {
@@ -103,11 +110,19 @@ export const site = {
 
   coverage: {
     /**
-     * Localidades atendidas. Só são exibidas quando `confirmed` for true.
-     * PENDENTE: lista retirada da referência visual; confirmar.
+     * Área de atuação exibida no mapa e na lista da seção de cobertura
+     * (confirmada pelo responsável). Com `confirmed: false`, mapa e lista somem.
+     * Coordenadas aproximadas, na escala do mapa; `label` define o lado do nome.
+     * Os municípios destacados no mapa ficam em scripts/gerar-mapa.py (SERVED).
      */
-    confirmed: false,
-    localities: ['Campos dos Goytacazes', 'São João da Barra', 'Tocos', 'Goitacazes', 'Farol'],
+    confirmed: true,
+    localities: [
+      { name: 'Campos dos Goytacazes', kind: 'Município', lat: -21.754, lon: -41.324, label: 'left' },
+      { name: 'São João da Barra', kind: 'Município', lat: -21.638, lon: -41.051, label: 'left' },
+      { name: 'Goitacazes', kind: 'Distrito de Campos', lat: -21.813, lon: -41.268, label: 'right' },
+      { name: 'Tocos', kind: 'Distrito de Campos', lat: -21.878, lon: -41.295, label: 'left' },
+      { name: 'Farol de São Tomé', kind: 'Praia, em Campos', lat: -22.042, lon: -41.053, label: 'left' },
+    ] satisfies Locality[],
     /**
      * Endpoint de consulta de viabilidade, se o sistema de gestão oferecer.
      * Sem endpoint, a consulta é encaminhada ao WhatsApp comercial.

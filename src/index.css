@@ -96,6 +96,14 @@
     animation: ring 2.8s cubic-bezier(0, 0, 0.2, 1) infinite;
     animation-delay: var(--delay, 0s);
   }
+  /* Mesmo anel de sinal, para círculos SVG (escala a partir do próprio centro). */
+  .svg-ring {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: ring 2.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+    animation-delay: var(--delay, 0s);
+  }
+
   .anim-ring-3 {
     animation: ring 2.4s cubic-bezier(0, 0, 0.2, 1) 3;
     animation-delay: var(--delay, 0.6s);
@@ -129,9 +137,18 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .fiber-pulse {
+  .fiber-pulse,
+  .svg-ring {
     display: none;
   }
+}
+
+/* Contorno azul-marinho atrás dos nomes do mapa, para lerem sobre as linhas. */
+.paint-halo {
+  paint-order: stroke;
+  stroke: #071b3d;
+  stroke-width: 4px;
+  stroke-linejoin: round;
 }
 
 /* Barra de progresso de leitura: animada pela própria rolagem, sem JavaScript. */
